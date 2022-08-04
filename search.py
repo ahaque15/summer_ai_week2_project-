@@ -17,6 +17,10 @@ In search.py, you will implement generic search algorithms which are called by
 Pacman agents (in searchAgents.py).
 """
 
+from argparse import Action
+from multiprocessing import set_start_method
+
+from numpy import true_divide
 import util
 
 class SearchProblem:
@@ -86,12 +90,97 @@ def depthFirstSearch(problem: SearchProblem):
     print("Is the start a goal?", problem.isGoalState(problem.getStartState()))
     print("Start's successors:", problem.getSuccessors(problem.getStartState()))
     "*** YOUR CODE HERE ***"
-    util.raiseNotDefined()
+    
+    visited = []
+    my_stack = util.Stack()
+   
+    #new state
+    start_state = problem.getStartState()
+
+    #we use push to move it to the front of the list
+
+    my_stack.push((start_state, [], 0))
+    goal_found = False
+    
+
+    
+    #while goal not found
+    
+    while goal_found == False:
+
+        new_node = problem.getSuccessors(problem.getStartState())
+
+        node, route, cost = my_stack.pop()
+        
+
+        if problem.isGoalState(node):
+
+            goal_found = True
+
+            return route
+
+
+        else:
+
+            visited.append(node)
+
+
+        #this was explained to me too, but I don't know where we got child, move, or my_cost
+        for child, move, my_cost in problem.getSuccessors(node):
+            if(not (child in visited)):
+                my_stack.push((child, route + [move], my_cost))
+
+                #I understand most of the push function, but I couldn't find a [move] defined anywhere. I assume it's the movement function that manages the provided route.
+
+    
 
 def breadthFirstSearch(problem: SearchProblem):
     """Search the shallowest nodes in the search tree first."""
     "*** YOUR CODE HERE ***"
-    util.raiseNotDefined()
+
+
+    new_queue = util.Queue()
+    visited_bfs = []
+
+
+    start_state = problem.getStartState()
+
+    new_queue.push((start_state, [], 0))
+
+    goal_found = False
+    
+
+
+    while goal_found == False:
+
+        node = problem.getSuccessors(problem.getStartState())
+        node, path, cost = new_queue.pop()
+        
+
+
+        if problem.isGoalState(node):
+            goal_found = True
+            return path
+
+
+        else:
+
+            visited_bfs.append(node)
+
+
+        for child, move, my_cost in problem.getSuccessors(node):
+
+            if(not (child in visited_bfs)):
+
+                new_queue.push((child, path + [move], my_cost))
+                
+
+
+
+   
+
+
+
 
 def uniformCostSearch(problem: SearchProblem):
     """Search the node of least total cost first."""
