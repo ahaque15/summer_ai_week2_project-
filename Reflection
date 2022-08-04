@@ -1,0 +1,3 @@
+Reflection:
+
+I did my best to implement Depth first Search and Breadth first search. For the test cases they seem to work, suprisingly. I am still new to Python, so some functions, such as my_stack.pop, are unfamiliar to me. I do understand how DFS and BFS both work visually with the nodes, and I understood the explanations in class. I haven't attempted to implement the A* Star, as I do not have enough experience to create that. I got most of my answers to my questions from Google, and from Mr. Quartey during class time.
